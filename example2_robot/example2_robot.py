@@ -24,22 +24,8 @@ class HelloWorld(BaseSample):
         return
 
     def setup_scene(self):
-
         world = self.get_world()
-        # 이게 바둑판 무늬 ground plane을 만들어주는 함수
         world.scene.add_default_ground_plane()
-
-        # # Example1 - Add Cube
-        # fancy_cube = world.scene.add(
-        #     DynamicCuboid(
-        #         prim_path="/World/random_cube", # The prim path of the cube in the USD stage
-        #         name="fancy_cube", # The unique name used to retrieve the object from the scene later on
-        #         position=np.array([0, 0, 1.0]), # Using the current stage units which is in meters by default.
-        #         scale=np.array([0.5015, 0.5015, 0.5015]), # most arguments accept mainly numpy arrays.
-        #         color=np.array([0, 0, 1.0]), # RGB channels, going from 0-1
-        #     ))
-        
-        # Example2 - Add Robot
         # you configure a new server with /Isaac folder in it
         assets_root_path = get_assets_root_path()
         if assets_root_path is None:
@@ -59,7 +45,6 @@ class HelloWorld(BaseSample):
         # because physics handles are not initialized yet. setup_post_load is called after
         # the first reset so we can do so there
         print("Num of degrees of freedom before first reset: " + str(jetbot_robot.num_dof)) # prints None
-
         return
 
     # Here we assign the class's variables
@@ -71,24 +56,10 @@ class HelloWorld(BaseSample):
     # many physical properties of the different objects
     async def setup_post_load(self):
         self._world = self.get_world()
-
-        # # Example1 - Add Cube
-        # self._cube = self._world.scene.get_object("fancy_cube")
-        # position, orientation = self._cube.get_world_pose()
-        # linear_velocity = self._cube.get_linear_velocity()
-        # # will be shown on terminal
-        # print("Cube position is : " + str(position))
-        # print("Cube's orientation is : " + str(orientation))
-        # print("Cube's linear velocity is : " + str(linear_velocity))
-
-        # Example2 - Add Robot
-        self._world = self.get_world()
         self._jetbot = self._world.scene.get_object("fancy_robot")
         # Print info about the jetbot after the first reset is called
         print("Num of degrees of freedom after first reset: " + str(self._jetbot.num_dof)) # prints 2
         print("Joint Positions after first reset: " + str(self._jetbot.get_joint_positions()))
-
-        # Example3 - Move Robot
         # This is an implicit PD controller of the jetbot/ articulation
         # setting PD gains, applying actions, switching control modes..etc.
         # can be done through this controller.
@@ -97,7 +68,6 @@ class HelloWorld(BaseSample):
         # Adding a physics callback to send the actions to apply actions with every
         # physics step executed.
         self._world.add_physics_callback("sending_actions", callback_fn=self.send_robot_actions)
-
         return
 
     def send_robot_actions(self, step_size):
@@ -107,10 +77,7 @@ class HelloWorld(BaseSample):
         # None means that nothing is applied to this dof index in this step
         # ALTERNATIVELY, same method is called from self._jetbot.apply_action(...)
         self._jetbot_articulation_controller.apply_action(ArticulationAction(joint_positions=None,
-                                                                            joint_efforts=None,
                                                                             joint_velocities=5 * np.random.rand(2,)))
-        
-        # print(step_size)
         return
 
     async def setup_pre_reset(self):

@@ -8,7 +8,7 @@
 
 import os
 from omni.isaac.examples.base_sample import BaseSampleExtension
-from omni.isaac.examples.isaac_extension_examples.rb_examples import HelloWorld
+from omni.isaac.examples.isaac_extension_examples.example2_robot import HelloWorld
 
 
 class HelloWorldExtension(BaseSampleExtension):
@@ -17,8 +17,8 @@ class HelloWorldExtension(BaseSampleExtension):
         super().start_extension(
             menu_name="Road Balance",
             submenu_name="",
-            name="Example 1",
-            title="Example 1",
+            name="Example 2 - Spawn Jetbot",
+            title="Example 2 - Spawn Jetbot",
             doc_link="https://docs.omniverse.nvidia.com/app_isaacsim/app_isaacsim/tutorial_core_hello_world.html",
             overview="This Example introduces the user on how to do cool stuff with Isaac Sim through scripting in asynchronous mode.",
             file_path=os.path.abspath(__file__),

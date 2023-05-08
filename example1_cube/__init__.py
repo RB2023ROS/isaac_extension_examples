@@ -8,5 +8,5 @@
 #
 
 # NOTE: Import here your extension examples to be propagated to ISAAC SIM Extensions startup
-from omni.isaac.examples.isaac_extension_examples.rb_examples.rb_examples import HelloWorld
-from omni.isaac.examples.isaac_extension_examples.rb_examples.rb_examples_extension import HelloWorldExtension
+from omni.isaac.examples.isaac_extension_examples.example1_cube.example1_cube import HelloWorld
+from omni.isaac.examples.isaac_extension_examples.example1_cube.example1_cube_extension import HelloWorldExtension
