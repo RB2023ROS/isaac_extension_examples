@@ -8,8 +8,7 @@
 
 import os
 from omni.isaac.examples.base_sample import BaseSampleExtension
-# from omni.isaac.examples.isaac_extension_examples.example4_manipulator import FrankaPlaying
-from omni.isaac.examples.isaac_extension_examples.example4_manipulator import FrankaWorld
+from omni.isaac.examples.isaac_extension_examples.example5_multi_robot import HelloWorld
 
 class HelloWorldExtension(BaseSampleExtension):
     def on_startup(self, ext_id: str):
@@ -17,11 +16,11 @@ class HelloWorldExtension(BaseSampleExtension):
         super().start_extension(
             menu_name="Road Balance",
             submenu_name="",
-            name="Example 4 - Manipulator(Franka)",
-            title="Example 4 - Manipulator(Franka)",
+            name="Example 5 - MultiRobot",
+            title="Example 5 - MultiRobot",
             doc_link="https://docs.omniverse.nvidia.com/app_isaacsim/app_isaacsim/tutorial_core_hello_world.html",
             overview="This Example introduces the user on how to do cool stuff with Isaac Sim through scripting in asynchronous mode.",
             file_path=os.path.abspath(__file__),
-            sample=FrankaWorld(),
+            sample=HelloWorld(),
         )
         return

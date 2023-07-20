@@ -47,9 +47,11 @@ class HelloWorld(BaseSample):
         return
 
     def send_robot_actions(self, step_size):
+        random_velocity = 5 * np.random.rand(2,)
+        print(f"Random Velocity is : {random_velocity}")
         self._jetbot.apply_wheel_actions(ArticulationAction(joint_positions=None,
                                                             joint_efforts=None,
-                                                            joint_velocities=5 * np.random.rand(2,)))
+                                                            joint_velocities=random_velocity))
         return
 
     async def setup_pre_reset(self):
