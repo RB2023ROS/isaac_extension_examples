@@ -75,6 +75,7 @@ class HelloWorld(BaseSample):
                 position=np.array([0, 0, 0.400]), 
                 physics_dt=self._world_settings["physics_dt"], 
                 model="Go1Velo"
+                # model="Go1Pure"
             )
         )
         return
@@ -84,7 +85,7 @@ class HelloWorld(BaseSample):
         self._appwindow = omni.appwindow.get_default_app_window()
         self._input = carb.input.acquire_input_interface()
         self._keyboard = self._appwindow.get_keyboard()
-        self._sub_keyboard = self._input.subscribe_to_keyboard_events(self._keyboard, self._sub_keyboard_event)
+        # self._sub_keyboard = self._input.subscribe_to_keyboard_events(self._keyboard, self._sub_keyboard_event)
         self._world.add_physics_callback("sending_actions", callback_fn=self.on_physics_step)
         await self._world.play_async()
         return
@@ -103,7 +104,8 @@ class HelloWorld(BaseSample):
         if self._event_flag:
             self._go1._qp_controller.switch_mode()
             self._event_flag = False
-        self._go1.advance(step_size, self._base_command)
+        # self._go1.advance(step_size, self._base_command)
+        self._go1.advance(step_size, self._base_command, auto_start=False)
 
     def _sub_keyboard_event(self, event, *args, **kwargs) -> bool:
         """Subscriber callback to when kit is updated."""

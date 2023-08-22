@@ -9,5 +9,6 @@
 
 # NOTE: Import here your extension examples to be propagated to ISAAC SIM Extensions startup
 from omni.isaac.examples.isaac_extension_examples.example6_custom_robot.unitree_sensored import Unitree
+from omni.isaac.examples.isaac_extension_examples.example6_custom_robot.qp_controller_sensored import A1QPController
 from omni.isaac.examples.isaac_extension_examples.example6_custom_robot.example6_custom_robot import HelloWorld
 from omni.isaac.examples.isaac_extension_examples.example6_custom_robot.example6_custom_robot_extension import HelloWorldExtension

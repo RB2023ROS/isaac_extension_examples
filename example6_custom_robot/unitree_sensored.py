@@ -16,12 +16,14 @@ from omni.isaac.sensor import _sensor
 from omni.isaac.core.utils.stage import get_current_stage, get_stage_units
 from omni.isaac.core.articulations import Articulation
 from omni.isaac.quadruped.utils.a1_classes import A1State, A1Measurement, A1Command
-from omni.isaac.quadruped.controllers import A1QPController
 from omni.isaac.sensor import ContactSensor, IMUSensor
 from typing import Optional, List
 from collections import deque
 import numpy as np
 import carb
+
+# from omni.isaac.quadruped.controllers import A1QPController
+from omni.isaac.examples.isaac_extension_examples.example6_custom_robot.qp_controller_sensored import A1QPController
 
 
 class Unitree(Articulation):
@@ -276,6 +278,7 @@ class Unitree(Articulation):
         self._qp_controller.set_target_command(goal)
 
         self._command.desired_joint_torque = self._qp_controller.advance(dt, self._measurement, path_follow, auto_start)
+        # print(f'self._command.desired_joint_torque {self._command.desired_joint_torque}')
 
         # joint_state from the DC interface now has the order of
         # 'FL_hip_joint',   'FR_hip_joint',   'RL_hip_joint',   'RR_hip_joint',
@@ -289,6 +292,8 @@ class Unitree(Articulation):
         # RR_hip_joint RR_thigh_joint RR_calf_joint
         # we convert controller order to DC order for command torque
         torque_reorder = np.array(self._command.desired_joint_torque.reshape([4, 3]).T.flat)
+        print(f'torque_reorder {torque_reorder}')
+
         self.set_joint_efforts(np.asarray(torque_reorder, dtype=np.float32))
         return self._command
 

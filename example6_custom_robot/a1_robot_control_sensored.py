@@ -83,8 +83,9 @@ class A1RobotControl:
             return np.zeros(12)
         # initial control
         if input_states._init_transition == 0 and input_states._prev_transition == 0:
+            # TODO: optimize this
             input_params._kp_linear[0:2] = np.array([500, 500])
-            print("input_states._init_transition", input_states._init_transition)
+            # print("input_states._init_transition", input_states._init_transition)
         
         # foot control
         foot_pos_final = input_states._foot_pos_target_rel
@@ -479,6 +480,7 @@ class A1RobotControl:
         # _root_pos_d : the desired body position in world frame
         # _root_pos : robot position in world frame
         root_acc[0:3] = input_params._kp_linear * (desired_states._root_pos_d - input_states._root_pos)
+        print(f"input_params._kp_linear : {input_params._kp_linear}")
 
         # 결국 다 world로 바꾼다.
         # _root_lin_vel_d이 robot frame 기준이어서 _root_lin_vel를 다시 robot frame으로 바꾼 뒤 다시 변환하는 것임
@@ -497,11 +499,14 @@ class A1RobotControl:
         root_acc[3:6] += input_params._kd_angular * (
             desired_states._root_ang_vel_d - input_states._rot_mat_z.T @ input_states._root_ang_vel
         )
+        print(f"_kp_angular : {input_params._kp_angular}")
 
         # Add gravity
         mass = input_params._robot_mass
+        print(f"input_params._robot_mass : {input_params._robot_mass}")
         root_acc[2] += mass * 9.8
 
+        # TODO: optimize this
         for i in range(6):
             if root_acc[i] < -500:
                 root_acc[i] = -500
